@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: business-gcs
+  cloud:
+    consul:
+      config:
+        format: yaml
+        prefix: config
+        defaultContext: ${spring.application.name}
+  profiles:
+    active: dev
+---
+spring:
+  profiles: dev
+  cloud:
+    consul:
+      host: 192.168.10.5
+    inetutils:
+      preferred-networks: 192\.168\.1[\d]\.[\d]+
+---
+spring:
+  profiles: test
+  cloud:
+    consul:
+      host: localhost
+---
+spring:
+  profiles: pro
+  cloud:
+    consul:
+      host: localhost

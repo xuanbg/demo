@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author 宣炳刚
  * @date 2020/12/20
- * @remark
+ * @remark 雪花ID生成器配置
  */
 @Configuration
 @ConfigurationProperties(prefix = "snowflake")

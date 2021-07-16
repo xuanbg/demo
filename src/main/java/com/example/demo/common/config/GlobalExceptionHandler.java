@@ -375,13 +375,39 @@ public class GlobalExceptionHandler implements ResponseBodyAdvice<Object> {
         LOGGER.error("requestId, {}. 异常堆栈, {}", requestId, stackTrace);
     }
 
+    /**
+     * 是否支持重写Body
+     *
+     * @param parameter 方法参数
+     * @param converter 消息转换器
+     * @return boolean
+     */
     @Override
     public boolean supports(MethodParameter parameter, Class<? extends HttpMessageConverter<?>> converter) {
         return true;
     }
 
+    /**
+     * 重写Body
+     *
+     * @param object    Body对象
+     * @param parameter 方法参数
+     * @param type      媒体类型
+     * @param converter 消息转换器
+     * @param request   请求数据
+     * @param response  响应数据
+     * @return Object
+     */
     @Override
     public Object beforeBodyWrite(Object object, MethodParameter parameter, MediaType type, Class<? extends HttpMessageConverter<?>> converter, ServerHttpRequest request, ServerHttpResponse response) {
-        return object instanceof Reply ? object : ReplyHelper.success(object);
+        if (object instanceof Reply) {
+            return object;
+        }
+
+        if (object instanceof String){
+            return ReplyHelper.success(object).toString();
+        }
+
+        return ReplyHelper.success(object);
     }
 }

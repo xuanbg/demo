@@ -34,7 +34,7 @@ public class LogClient {
      * @param id       业务ID
      * @param content  日志内容
      */
-    public void writeLog(LoginInfo info, String business, OperateType type, String id, Object content) {
+    public void writeLog(LoginInfo info, String business, OperateType type, Long id, Object content) {
         Log log = new Log();
         log.setAppId(info.getAppId());
         log.setTenantId(info.getTenantId());
